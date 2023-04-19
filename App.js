@@ -10,7 +10,7 @@ import { Store } from './redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeStatus } from './redux/cameraSlice';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-
+import DBshow from './screens/DBshow';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,6 +22,15 @@ function MyTabs() {
       <Tab.Screen
         name="Home"
         component={Home}
+        listeners={{
+          tabPress: (e) => {
+            dispatch(changeStatus(null));
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Database"
+        component={DBshow}
         listeners={{
           tabPress: (e) => {
             dispatch(changeStatus(null));

@@ -10,8 +10,9 @@ import {
 import React, { useState, useEffect } from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useDispatch, useSelector } from 'react-redux';
-import { scanUrl } from '../redux/reducer';
+import { scanUrl } from '../redux/scanSlice';
 import { changeStatus } from '../redux/cameraSlice';
+import uuid from 'react-native-uuid';
 
 export default function Scanner() {
   const camera = useSelector((state) => state.camera);
@@ -38,7 +39,7 @@ export default function Scanner() {
       { text: 'Scan again?', onPress: () => setScanned(false) },
     ]);
     Linking.openURL(data);
-    dispatch(scanUrl(data));
+    dispatch(scanUrl({ uuid: uuid.v4(), data: data }));
   };
 
   if (camera === null) {
