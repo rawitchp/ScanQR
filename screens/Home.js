@@ -11,11 +11,13 @@ import { React, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { checked, unChecked } from '../redux/scanSlice';
 import * as SQLite from 'expo-sqlite';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function Home() {
   const urls = useSelector((state) => state.url);
   const dispatch = useDispatch();
   const db = SQLite.openDatabase('scanQR_DB');
+  const isFocused = useIsFocused();
   useEffect(() => {
     db.transaction((tx) => {
       tx.executeSql(
@@ -88,12 +90,16 @@ export default function Home() {
       );
     });
   };
-;;
   return (
     <View>
       <ScrollView>
         {urls.map((url) => (
-          <View style={styles.container} id={url.id} key={url.id}>
+          <View
+            style={styles.container}
+            id={url.id}
+            key={url.id}
+            className="rounded"
+          >
             <Pressable onPress={() => Linking.openURL(url.data)}>
               <View>
                 <Text style={{ color: '#fff' }}>{url.data}</Text>
@@ -119,7 +125,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     backgroundColor: 'tomato',
     color: '#fff',
-    borderRadius: 5,
+    // borderRadius: 5,
     justifyContent: 'space-between',
   },
 });
