@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import urlReducer, { urlSlice } from './scanSlice';
-import cameraReducer, { cameraSlice } from './cameraSlice';
+import urlReducer from './scanSlice';
+import cameraReducer from './cameraSlice';
 
 export const Store = configureStore({
   reducer: {
